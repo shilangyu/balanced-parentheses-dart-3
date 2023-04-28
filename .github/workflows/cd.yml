@@ -1,0 +1,29 @@
+name: cd
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install pandoc
+        run: |
+          sudo apt-get update -qq
+          curl https://github.com/jgm/pandoc/releases/download/2.19.2/pandoc-2.19.2-1-amd64.deb -L --output pandoc.deb
+          sudo apt install ./pandoc.deb
+
+      - name: Generate html
+        run: |
+          mkdir out
+          pandoc README.md --metadata geometry="margin=3rem" --metadata pagetitle="Balanced parentheses with Dart 3" --metadata title="Solving balanced parentheses problem using Dart 3 type system" --standalone --katex -o out/index.html -H .github/workflows/headers.html
+
+      - name: Deploy pdf to Github Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          BRANCH: gh-pages
+          FOLDER: out
