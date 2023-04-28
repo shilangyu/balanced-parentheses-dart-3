@@ -5,8 +5,8 @@ void main() {
 }
 
 bool areParenthesesBalanced(String s) {
-  final valid = RegExp(r'^[\(\)]*$').hasMatch(s);
-  if (!valid) return false;
+  // sanity check if the input is up to assumptions
+  if (!RegExp(r'^[\(\)]*$').hasMatch(s)) return false;
 
   final program = '''
 extension on () {
@@ -23,7 +23,7 @@ void main() {
         Platform.pathSeparator +
         'main.dart',
   )..writeAsStringSync(program);
-  final result = Process.runSync('dart', ['run', file.path]);
+  final result = Process.runSync('dart', ['analyze', file.path]);
 
   return result.exitCode == 0;
 }
