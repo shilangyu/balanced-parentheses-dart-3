@@ -235,7 +235,7 @@ $$
 This results in two identical productions, so we can just stick to $S$:
 
 $$
-	S \to S \text{ '(' } S \text{ ')'} \quad | \quad \text{'(' } S \text{ ')'} \quad | \quad S \text{ '(' ')'} \quad | \quad \text{'(' ')'} \\
+	S \to S \text{ '(' } S \text{ ')'} \quad | \quad \text{'(' } S \text{ ')'} \quad | \quad S \text{ '(' ')'} \quad | \quad \text{'(' ')'}
 $$
 
 ### $G_e$ grammar
