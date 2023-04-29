@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Balanced parentheses with Dart 3</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style>
+    html {
+      font-size: 100%;
+      overflow-y: scroll;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+    body {
+      color: #444;
+      font-family: Georgia, Palatino, "Palatino Linotype", Times,
+        "Times New Roman", serif;
+      font-size: 12px;
+      line-height: 1.7;
+      padding: 1em;
+      margin: auto;
+      max-width: 48em;
+      background: #fefefe;
+    }
+    a {
+      color: #0645ad;
+      text-decoration: none;
+    }
+    a:visited {
+      color: #0b0080;
+    }
+    a:hover {
+      color: #06e;
+    }
+    a:active {
+      color: #faa700;
+    }
+    a:focus {
+      outline: thin dotted;
+    }
+    ::-moz-selection {
+      background: rgba(255, 255, 0, 0.3);
+      color: #000;
+    }
+    ::selection {
+      background: rgba(255, 255, 0, 0.3);
+      color: #000;
+    }
+    a::-moz-selection {
+      background: rgba(255, 255, 0, 0.3);
+      color: #0645ad;
+    }
+    a::selection {
+      background: rgba(255, 255, 0, 0.3);
+      color: #0645ad;
+    }
+    p {
+      margin: 1em 0;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: #111;
+      line-height: 125%;
+      margin-top: 2em;
+      font-weight: 400;
+    }
+    h4,
+    h5,
+    h6 {
+      font-weight: 700;
+    }
+    h1 {
+      font-size: 2.5em;
+    }
+    h2 {
+      font-size: 2em;
+    }
+    h3 {
+      font-size: 1.5em;
+    }
+    h4 {
+      font-size: 1.2em;
+    }
+    h5 {
+      font-size: 1em;
+    }
+    h6 {
+      font-size: 0.9em;
+    }
+    blockquote {
+      color: #666;
+      margin: 0;
+      padding-left: 3em;
+      border-left: 0.5em #eee solid;
+    }
+    hr {
+      display: block;
+      height: 2px;
+      border: 0;
+      border-top: 1px solid #aaa;
+      border-bottom: 1px solid #eee;
+      margin: 1em 0;
+      padding: 0;
+    }
+    code,
+    kbd,
+    pre,
+    samp {
+      color: #000;
+      font-family: monospace, monospace;
+      font-size: 0.98em;
+    }
+    pre {
+      white-space: pre;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    b,
+    strong {
+      font-weight: 700;
+    }
+    dfn {
+      font-style: italic;
+    }
+    ins {
+      background: #ff9;
+      color: #000;
+      text-decoration: none;
+    }
+    mark {
+      background: #ff0;
+      color: #000;
+      font-style: italic;
+      font-weight: 700;
+    }
+    sub,
+    sup {
+      font-size: 75%;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+    }
+    sup {
+      top: -0.5em;
+    }
+    sub {
+      bottom: -0.25em;
+    }
+    ol,
+    ul {
+      margin: 1em 0;
+      padding: 0 0 0 2em;
+    }
+    li p:last-child {
+      margin-bottom: 0;
+    }
+    ol ol,
+    ul ul {
+      margin: 0.3em 0;
+    }
+    dl {
+      margin-bottom: 1em;
+    }
+    dt {
+      font-weight: 700;
+      margin-bottom: 0.8em;
+    }
+    dd {
+      margin: 0 0 0.8em 2em;
+    }
+    dd:last-child {
+      margin-bottom: 0;
+    }
+    img {
+      border: 0;
+      -ms-interpolation-mode: bicubic;
+      vertical-align: middle;
+    }
+    figure {
+      display: block;
+      text-align: center;
+      margin: 1em 0;
+    }
+    figure img {
+      border: none;
+      margin: 0 auto;
+    }
+    figcaption {
+      font-size: 0.8em;
+      font-style: italic;
+      margin: 0 0 0.8em;
+    }
+    table {
+      margin-bottom: 2em;
+      border-bottom: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+    table th {
+      padding: 0.2em 1em;
+      background-color: #eee;
+      border-top: 1px solid #ddd;
+      border-left: 1px solid #ddd;
+    }
+    table td {
+      padding: 0.2em 1em;
+      border-top: 1px solid #ddd;
+      border-left: 1px solid #ddd;
+      vertical-align: top;
+    }
+    .author {
+      font-size: 1.2em;
+      text-align: center;
+    }
+    @media only screen and (min-width: 360px) {
+      body {
+        font-size: 12px;
+      }
+    }
+    @media only screen and (min-width: 480px) {
+      body {
+        font-size: 14px;
+      }
+    }
+    @media only screen and (min-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+    }
+    @media print {
+      * {
+        background: 0 0 !important;
+        color: #000 !important;
+        filter: none !important;
+        -ms-filter: none !important;
+      }
+      body {
+        font-size: 12pt;
+        max-width: 100%;
+      }
+      a,
+      a:visited {
+        text-decoration: underline;
+      }
+      hr {
+        height: 1px;
+        border: 0;
+        border-bottom: 1px solid #000;
+      }
+      a[href]:after {
+        content: " (" attr(href) ")";
+      }
+      abbr[title]:after {
+        content: " (" attr(title) ")";
+      }
+      .ir a:after,
+      a[href^="#"]:after,
+      a[href^="javascript:"]:after {
+        content: "";
+      }
+      blockquote,
+      pre {
+        border: 1px solid #999;
+        padding-right: 1em;
+        page-break-inside: avoid;
+      }
+      img,
+      tr {
+        page-break-inside: avoid;
+      }
+      img {
+        max-width: 100% !important;
+      }
+      @page :left {
+        margin: 15mm 20mm 15mm 10mm;
+      }
+      @page :right {
+        margin: 15mm 10mm 15mm 20mm;
+      }
+      h2,
+      h3,
+      p {
+        orphans: 3;
+        widows: 3;
+      }
+      h2,
+      h3 {
+        page-break-after: avoid;
+      }
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Solving balanced parentheses problem using Dart 3 type
+system</h1>
+</header>
+<details>
+<summary>
+Prerequisite knowledge
+</summary>
+<ol type="1">
+<li>Dart is a programming language. Dart 3 is the third major release of
+Dart.</li>
+<li>Dart 3 introduces records, which are basically tuples with optional
+labels.</li>
+<li>Dart is a C-like language. <code>final</code> declares a variable
+with an inferred type.</li>
+<li>Last section needs a bit of knowledge about propositional calculus
+and formal languages. Introducing those is beyond the scope of this
+article.</li>
+</ol>
+</details>
+<h2 id="parentheses-in-dart">Parentheses in Dart</h2>
+<p>Dart 3 introduces records into the language. <code>()</code> is an
+<strong>empty record</strong>. Using it can result in fun syntax:</p>
+<pre class="dart"><code>final a = (); // empty record
+final b = ((),); // record holding a single empty record
+final c = ((), ()); // record holding two empty records</code></pre>
+<p>Notice how example <code>b</code> has a trailing comma.
+Single-element records require this comma to differentiate this record
+from a different expression, to be introduced in a moment.</p>
+<p>Parentheses have a few more uses in Dart, but we will focus on only
+two more.</p>
+<p>First of all, they are used to <strong>group expressions</strong> to
+indicate precedence:</p>
+<pre class="dart"><code>final a = (1 + 2) * (3 - 4); // first add, then subtract, then multiply
+final b = (123) + ((312)); // a no-op grouping of literals, equivalent to `123 + 321`</code></pre>
+<p>Mixing empty records and grouping we get a new expression:</p>
+<pre class="dart"><code>final a = (()); // a no-op grouping of an empty record, equivalent to just `()`
+final b = ((())); // same as above</code></pre>
+<p>So <code>((),)</code> is a record holding a single empty record but
+<code>(())</code> is just <code>()</code> so an empty record.</p>
+<p>Finally one more usage for parentheses is <strong>function call
+expressions</strong>. Functions are first-class objects in Dart, so you
+call functions stored in variables:</p>
+<pre class="dart"><code>final a = func(); // calls `func`
+final b = returnFunc()(); // calls `returnFunc` and then calls the function that was returned</code></pre>
+<p>Mixing empty records with call expressions we get:</p>
+<pre class="dart"><code>final a = func(()); // calls `func` with a single argument, the empty record
+final b = func((),); // same as above</code></pre>
+<p>And finally bringing grouping into the mix we get:</p>
+<pre class="dart"><code>final a = func((())); // calls `func` with a single no-op grouped empty record, equivalent to `func(())`
+final b = func(((),)); // calls `func` with a single record holding a single empty record</code></pre>
+<p>This introduces all parenthesis usages we need to solve the problem
+at hand (problem which was not yet introduced).</p>
+<h2 id="call-overload">Call overload</h2>
+<p>Now we move onto three more Dart features that will be needed:
+callable objects, extensions, and optional parameters.</p>
+<p>Similarly to how you can overload the <code>+</code> operator for
+your types, Dart allows you to <strong>overload the call
+invocation</strong>. This is done by implementing a method called
+<code>call</code>. This results in instances acting like functions:</p>
+<pre class="dart"><code>class StringLength {
+    StringLength(this.multiplier);
+
+    final int multiplier;
+
+    int call(String param) {
+        return param.length * multiplier;
+    }
+}
+
+final a = StringLength(3)(&#39;asd&#39;); // constructs an instance of `StringLength` and calls this instance like a function</code></pre>
+<p><strong>Extensions</strong> allow you to add new methods to existing
+types, most useful for types defined outside of your library:</p>
+<pre class="dart"><code>extension on int {
+    int negate() =&gt; -this; // `=&gt;` is a shorthand for immediately returning a value
+}
+
+final a = 123.negate(); // calls the attached method `negate` with `this = 123`</code></pre>
+<p>What’s more, you can use extensions to overload the call
+invocation:</p>
+<pre class="dart"><code>extension on int {
+    int call() =&gt; this * 2;
+}
+
+final a = 123(); // calls `123` as if it were a function</code></pre>
+<p>The final piece needed to complete the puzzle are <strong>optional
+parameters</strong>. These are parameters that can be provided, but
+don’t have to.</p>
+<pre class="dart"><code>extension on int {
+    int call([int? multiplier]) {
+        if (multiplier != null) {
+            return this * multiplier;
+        } else {
+            return this;
+        }
+    }
+}
+
+final a = 123(); // calls `123` with `multiplier = null`
+final b = 123(321); // calls `123` with `multiplier = 321`</code></pre>
+<h2 id="bringing-it-all-together">Bringing it all together</h2>
+<p>Now we can descend into madness:</p>
+<pre class="dart"><code>extension on () {
+  () call([()? _]) =&gt; ();
+}
+
+final a = (())()(())()(()())()(((()()))())(((())));</code></pre>
+<p>Perfectly valid Dart program using <strong>all introduced
+concepts</strong>. Let’s break it down:</p>
+<ol type="1">
+<li>We overload the call invocation for empty records. This makes
+<code>final a = ()();</code> valid, first create an empty record then
+call it.</li>
+<li>We accept an optional parameter whose type is an empty record. This
+makes <code>final a = ()(());</code> valid, first create an empty record
+then call it with an empty record.</li>
+<li>We return an empty record. This makes <code>final a = ()()();</code>
+valid, the first <code>()</code> pair is an empty record, all following
+pairs are call expressions.</li>
+<li>We sprinkle some grouping expressions.
+<code>final a = ((())())();</code> is equivalent to
+<code>final a = ()()();</code>.</li>
+</ol>
+<p>So while these are all just parenthesis, they represent three
+distinct functionalities.</p>
+<h2 id="problem-of-balanced-parentheses">Problem of balanced
+parentheses</h2>
+<p>We can finally use the introduced tools to solve a real problem:
+balanced parentheses. Given a string containing only <code>(</code> and
+<code>)</code> characters does it have the following property: every
+close parenthesis appears after a corresponding open parenthesis and
+conversely. A few examples:</p>
+<ul>
+<li><code>()()</code> - balanced</li>
+<li><code>(())</code> - balanced</li>
+<li><code>(()(()))</code> - balanced</li>
+<li><code>())</code> - imbalanced, dangling close parenthesis</li>
+<li><code>(</code> - imbalanced, open parenthesis is never closed</li>
+<li><code>(()())(()</code> - imbalanced, open parenthesis is never
+closed</li>
+</ul>
+<p>Notice how balanced parentheses look like valid Dart paren
+expressions, and imbalanced parentheses look like invalid Dart paren
+expressions (I am using ‘Dart paren expression’ to refer to the
+expression using only parentheses with the <code>call</code> extension
+overload on the empty record). Here, let’s assume an empty string is not
+balanced, since it obviously wont be a valid expression. There seems to
+be an equivalence here, but before we prove this let’s code up a
+function which will use this (<em>for now</em>) conjecture:</p>
+<pre class="dart"><code>import &#39;dart:io&#39;;
+
+void main() {
+  print(areParenthesesBalanced(&quot;()()(())()(()())()(((()()))())((((((()))))))&quot;));
+}
+
+bool areParenthesesBalanced(String s) {
+    // sanity check if the input is up to assumptions
+  if (!RegExp(r&#39;^[\(\)]*$&#39;).hasMatch(s)) return false;
+
+  final program = &#39;&#39;&#39;
+extension on () {
+  () call([()? _]) =&gt; ();
+}
+
+void main() {
+  final _ = $s;
+}
+&#39;&#39;&#39;;
+
+  final file = File(
+    Directory.systemTemp.createTempSync().path +
+        Platform.pathSeparator +
+        &#39;main.dart&#39;,
+  )..writeAsStringSync(program);
+  final result = Process.runSync(&#39;dart&#39;, [&#39;analyze&#39;, file.path]);
+
+  return result.exitCode == 0;
+}</code></pre>
+<p>We build source code for a program that will use these parentheses as
+an expression. We also define the <code>call</code> overload on
+<code>()</code>. We write this code to some file on OS’ temp folder and
+run <code>dart analyze</code> on it. If analyzer reports no errors (exit
+code is zero), then the parentheses are balanced. Voilà.</p>
+<h2 id="bringing-in-a-bit-of-rigor">Bringing in a bit of rigor</h2>
+<p>I conjectured that all balanced strings of parentheses represent a
+valid Dart paren expression, and all imbalanced strings of parentheses
+represent an invalid Dart paren expression.</p>
+<p>Let <span class="math inline">b</span> be a balanced string and <span
+class="math inline">e</span> be a valid Dart paren expression (then
+<span class="math inline">\neg b</span> is an imbalanced string and
+<span class="math inline">\neg e</span> is an invalid Dart paren
+expression). Then in propositional calculus our statement is: <span
+class="math inline">(b \implies e) \land (\neg b \implies \neg
+e)</span>, simplifying it we see this is a pretty strong statement:</p>
+<p><span class="math display">
+\begin{align}
+    (b \implies e) \land (\neg b \implies \neg e) &amp;= (b \implies e)
+\land (\neg \neg b \lor \neg e) \\
+     &amp;= (b \implies e) \land (b \lor \neg e) \\
+     &amp;= (b \implies e) \land (\neg e \lor b) \\
+     &amp;= (b \implies e) \land (e \implies b) \\
+     &amp;= b \iff e \\
+\end{align}
+</span></p>
+<!-- katex does not support labeling align equations, so I have to manually refer to lines -->
+<p>At <span class="math inline">(1)</span> we use the rule <span
+class="math inline">(b \implies e) \equiv (\neg b \lor e)</span>. In
+<span class="math inline">(2)</span> we cancel out two negations. In
+<span class="math inline">(3)</span> we swap logical or’s operands (we
+can do that, logical or is commutative). Then we use the implication
+rule in <span class="math inline">(4)</span> and finally we use the
+definition of iff in <span class="math inline">(5)</span>, namely <span
+class="math inline">(b \iff e) \equiv ((b \implies e) \land (e \implies
+b))</span>.</p>
+<p>This means that parentheses are balanced if and only if they form a
+valid Dart paren expression. Normally one would prove this by proving
+both implications, but here instead we will prove it by showing that the
+language of all balanced parentheses is equal to the language of all
+valid Dart paren expression. Equivalently, we will show that the
+grammars used to generate both are the same.</p>
+<p>Let <span class="math inline">B</span> be the language of all
+balanced parentheses and let <span class="math inline">G_b</span> be its
+grammar (ie. the language generated by <span
+class="math inline">G_b</span> is <span class="math inline">B</span>:
+<span class="math inline">L(G_b) = B</span>). Similarly, let <span
+class="math inline">E</span> be the language of all valid Dart paren
+expressions and let <span class="math inline">G_e</span> be its grammar
+(ie. the language generated by <span class="math inline">G_e</span> is
+<span class="math inline">E</span>: <span class="math inline">L(G_e) =
+E</span>).</p>
+<h3 id="g_b-grammar"><span class="math inline">G_b</span> grammar</h3>
+<p>Let us start by showing <span class="math inline">G_b</span>’s
+productions:</p>
+<p><span class="math display">
+\begin{aligned}
+    S &amp;\to A \text{ &#39;(&#39; } A \text{ &#39;)&#39;} \\
+    A &amp;\to A \text{ &#39;(&#39; } A \text{ &#39;)&#39;} \quad |
+\quad \varepsilon \\
+\end{aligned}
+</span></p>
+<p><span class="math inline">S</span> being the initial symbol of
+grammar, we can use it to derive every possible balanced string. The
+parentheses are always balanced (productions introduce parentheses in
+pairs), can be nested, and can appear side to side.</p>
+<p>We can still simplify it a bit by getting rid of the <span
+class="math inline">A</span> production. The distinction between <span
+class="math inline">S</span> and <span class="math inline">A</span>
+exists only to disallow the empty string from being part of the
+language. To do that we will do a so called <em>“elimination of epsilon
+productions”</em>. This works by inlining cases where one would use the
+epsilon production:</p>
+<p><span class="math display">
+\begin{aligned}
+    S &amp;\to A \text{ &#39;(&#39; } A \text{ &#39;)&#39;} \quad |
+\quad \text{&#39;(&#39; } A \text{ &#39;)&#39;} \quad | \quad A \text{
+&#39;(&#39; &#39;)&#39;} \quad | \quad \text{&#39;(&#39; &#39;)&#39;} \\
+    A &amp;\to A \text{ &#39;(&#39; } A \text{ &#39;)&#39;} \quad |
+\quad \text{&#39;(&#39; } A \text{ &#39;)&#39;} \quad | \quad A \text{
+&#39;(&#39; &#39;)&#39;} \quad | \quad \text{&#39;(&#39; &#39;)&#39;} \\
+\end{aligned}
+</span></p>
+<p>This results in two identical productions, so we can just stick to
+<span class="math inline">S</span>:</p>
+<p><span class="math display">
+    S \to S \text{ &#39;(&#39; } S \text{ &#39;)&#39;} \quad | \quad
+\text{&#39;(&#39; } S \text{ &#39;)&#39;} \quad | \quad S \text{
+&#39;(&#39; &#39;)&#39;} \quad | \quad \text{&#39;(&#39; &#39;)&#39;} \\
+</span></p>
+<h3 id="g_e-grammar"><span class="math inline">G_e</span> grammar</h3>
+<p>For <span class="math inline">G_e</span> we will define more
+productions, each encoding some semantics of a Dart paren
+expression.</p>
+<p>First of all, we can generate the empty record</p>
+<p><span class="math display">
+    \text{Record} \to \text{&#39;(&#39; &#39;)&#39;}
+</span></p>
+<p>but we also can group any expression</p>
+<p><span class="math display">
+    \text{Group} \to \text{&#39;(&#39; } \text{Expression} \text{
+&#39;)&#39;}
+</span></p>
+<p>but we can also invoke any expression (because every expression
+evaluates to an empty record), possibly with a single argument which is
+also an expression</p>
+<p><span class="math display">
+    \text{Invoke} \to \text{Expression} \text{ &#39;(&#39; &#39;)&#39;}
+\quad | \quad \text{Expression} \text{ &#39;(&#39; } \text{Expression}
+\text{ &#39;)&#39;}
+</span></p>
+<p>which concludes the three different uses of parentheses. The main
+production is:</p>
+<p><span class="math display">
+    \text{Expression} \to \text{Record} \quad | \quad \text{Group} \quad
+| \quad \text{Invoke}
+</span></p>
+<h3 id="g_b-stackrel-g_e"><span class="math inline">G_b \stackrel{?}{=}
+G_e</span></h3>
+<p>We have <span class="math inline">G_b</span> and <span
+class="math inline">G_e</span>. It is time to show that these are in
+fact equivalent. Lets firstly inline the whole <span
+class="math inline">\text{Expression}</span> production:</p>
+<p><span class="math display">
+\begin{aligned}
+    \text{Expression} \to &amp; \\
+        &amp; \text{&#39;(&#39; &#39;)&#39;} \\
+        &amp;| \quad \text{&#39;(&#39; } \text{Expression} \text{
+&#39;)&#39;} \\
+        &amp;| \quad \text{Expression} \text{ &#39;(&#39; &#39;)&#39;}
+\quad | \quad \text{Expression} \text{ &#39;(&#39; } \text{Expression}
+\text{ &#39;)&#39;} \\
+\end{aligned}
+</span></p>
+<p>And… That’s it. Replacing <span
+class="math inline">\text{Expression}</span> with <span
+class="math inline">S</span> we can see that both productions are
+exactly the same. Thus, <span class="math inline">G_b = G_e</span>,
+hence <span class="math inline">B = E</span>, hence <span
+class="math inline">b \iff e</span> <span
+class="math inline">\square</span>.</p>
+<blockquote>
+<p>I made a subtle assumption here: the grammar presented for both
+languages is correct. At no point did I prove that the presented
+grammars actually generate the languages in question.</p>
+</blockquote>
+<p>These languages (or at this point, “this language”) is not regular.
+One insightful consequence is that you cannot determine if a string of
+parentheses is balanced using a regular expression. The language is one
+class higher, it is context free (which is trivially proven by
+previously writing its context free grammar). Sketch of the proof that
+it is not context free: using the contraposition of the pumping lemma we
+consider the word <span class="math inline">(^N)^N</span> which is in
+the language, but pumping it only ever removes/adds open parenthesis
+making the string imbalanced which renders it outside of the
+language.</p>
+<hr />
+<ul>
+<li>Discussion on <a href="TODO">Reddit</a></li>
+<li>Discussion on <a href="TODO">Hacker news</a></li>
+<li>Contribute corrections on <a
+href="https://github.com/shilangyu/balanced-parentheses-dart-3">Github</a></li>
+</ul>
+</body>
+</html>
