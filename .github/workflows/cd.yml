@@ -20,7 +20,7 @@ jobs:
       - name: Generate html
         run: |
           mkdir out
-          pandoc README.md --metadata geometry="margin=3rem" --metadata pagetitle="Balanced parentheses with Dart 3" --metadata title="Solving balanced parentheses problem using Dart 3 type system" --standalone --katex -o out/index.html -H .github/workflows/headers.html
+          pandoc README.md --metadata geometry="margin=3rem" --metadata pagetitle="Balanced parentheses with Dart 3" --metadata title="Solving balanced parentheses problem using Dart's type system" --standalone --katex -o out/index.html -H .github/workflows/headers.html
 
       - name: Deploy pdf to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4
