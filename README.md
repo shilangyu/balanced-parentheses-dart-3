@@ -287,6 +287,6 @@ These languages (or at this point, "this language") is not regular. One insightf
 
 ---
 
-- Discussion on [Reddit](TODO)
-- Discussion on [Hacker news](TODO)
+- Discussion on [Reddit](https://www.reddit.com/r/programming/comments/1339oal/solving_balanced_parentheses_problem_using_darts)
+- Discussion on [Hacker news](https://news.ycombinator.com/item?id=35758247)
 - Contribute corrections on [Github](https://github.com/shilangyu/balanced-parentheses-dart-3)
