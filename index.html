@@ -7,9 +7,6 @@
   <title>Balanced parentheses with Dart 3</title>
   <style>
     html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
       color: #1a1a1a;
       background-color: #fdfdfd;
     }
@@ -28,13 +25,16 @@
     @media (max-width: 600px) {
       body {
         font-size: 0.9em;
-        padding: 1em;
+        padding: 12px;
       }
       h1 {
         font-size: 1.8em;
       }
     }
     @media print {
+      html {
+        background-color: white;
+      }
       body {
         background-color: transparent;
         color: black;
@@ -84,9 +84,10 @@
       color: #606060;
     }
     code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
       font-size: 85%;
       margin: 0;
+      hyphens: manual;
     }
     pre {
       margin: 1em 0;
@@ -157,6 +158,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <style>
     html {
@@ -497,9 +562,10 @@ article.</li>
 <h2 id="parentheses-in-dart">Parentheses in Dart</h2>
 <p>Dart 3 introduces records into the language. <code>()</code> is an
 <strong>empty record</strong>. Using it can result in fun syntax:</p>
-<pre class="dart"><code>final a = (); // empty record
-final b = ((),); // record holding a single empty record
-final c = ((), ()); // record holding two empty records</code></pre>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> a <span class="op">=</span> (); <span class="co">// empty record</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> b <span class="op">=</span> (()<span class="op">,</span>); <span class="co">// record holding a single empty record</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> c <span class="op">=</span> (()<span class="op">,</span> ()); <span class="co">// record holding two empty records</span></span></code></pre></div>
 <p>Notice how example <code>b</code> has a trailing comma.
 Single-element records require this comma to differentiate this record
 from a different expression, to be introduced in a moment.</p>
@@ -507,24 +573,29 @@ from a different expression, to be introduced in a moment.</p>
 two more.</p>
 <p>First of all, they are used to <strong>group expressions</strong> to
 indicate precedence:</p>
-<pre class="dart"><code>final a = (1 + 2) * (3 - 4); // first add, then subtract, then multiply
-final b = (123) + ((312)); // a no-op grouping of literals, equivalent to `123 + 321`</code></pre>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> a <span class="op">=</span> (<span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">-</span> <span class="dv">4</span>); <span class="co">// first add, then subtract, then multiply</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> b <span class="op">=</span> (<span class="dv">123</span>) <span class="op">+</span> ((<span class="dv">312</span>)); <span class="co">// a no-op grouping of literals, equivalent to `123 + 321`</span></span></code></pre></div>
 <p>Mixing empty records and grouping we get a new expression:</p>
-<pre class="dart"><code>final a = (()); // a no-op grouping of an empty record, equivalent to just `()`
-final b = ((())); // same as above</code></pre>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> a <span class="op">=</span> (()); <span class="co">// a no-op grouping of an empty record, equivalent to just `()`</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> b <span class="op">=</span> ((())); <span class="co">// same as above</span></span></code></pre></div>
 <p>So <code>((),)</code> is a record holding a single empty record but
 <code>(())</code> is just <code>()</code> so an empty record.</p>
 <p>Finally one more usage for parentheses is <strong>function call
 expressions</strong>. Functions are first-class objects in Dart, so you
 call functions stored in variables:</p>
-<pre class="dart"><code>final a = func(); // calls `func`
-final b = returnFunc()(); // calls `returnFunc` and then calls the function that was returned</code></pre>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> a <span class="op">=</span> func(); <span class="co">// calls `func`</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> b <span class="op">=</span> returnFunc()(); <span class="co">// calls `returnFunc` and then calls the function that was returned</span></span></code></pre></div>
 <p>Mixing empty records with call expressions we get:</p>
-<pre class="dart"><code>final a = func(()); // calls `func` with a single argument, the empty record
-final b = func((),); // same as above</code></pre>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> a <span class="op">=</span> func(()); <span class="co">// calls `func` with a single argument, the empty record</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> b <span class="op">=</span> func(()<span class="op">,</span>); <span class="co">// same as above</span></span></code></pre></div>
 <p>And finally bringing grouping into the mix we get:</p>
-<pre class="dart"><code>final a = func((())); // calls `func` with a single no-op grouped empty record, equivalent to `func(())`
-final b = func(((),)); // calls `func` with a single record holding a single empty record</code></pre>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> a <span class="op">=</span> func((())); <span class="co">// calls `func` with a single no-op grouped empty record, equivalent to `func(())`</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> b <span class="op">=</span> func((()<span class="op">,</span>)); <span class="co">// calls `func` with a single record holding a single empty record</span></span></code></pre></div>
 <p>This introduces all parenthesis usages we need to solve the problem
 at hand (problem which was not yet introduced).</p>
 <h2 id="call-overload">Call overload</h2>
@@ -534,53 +605,58 @@ callable objects, extensions, and optional parameters.</p>
 your types, Dart allows you to <strong>overload the call
 invocation</strong>. This is done by implementing a method called
 <code>call</code>. This results in instances acting like functions:</p>
-<pre class="dart"><code>class StringLength {
-    StringLength(this.multiplier);
-
-    final int multiplier;
-
-    int call(String param) {
-        return param.length * multiplier;
-    }
-}
-
-final a = StringLength(3)(&#39;asd&#39;); // constructs an instance of `StringLength` and calls this instance like a function</code></pre>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> StringLength {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    StringLength(<span class="kw">this</span><span class="op">.</span>multiplier);</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> <span class="dt">int</span> multiplier;</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> call(<span class="dt">String</span> param) {</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> param<span class="op">.</span>length <span class="op">*</span> multiplier;</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> a <span class="op">=</span> StringLength(<span class="dv">3</span>)(<span class="st">&#39;asd&#39;</span>); <span class="co">// constructs an instance of `StringLength` and calls this instance like a function</span></span></code></pre></div>
 <p><strong>Extensions</strong> allow you to add new methods to existing
 types, most useful for types defined outside of your library:</p>
-<pre class="dart"><code>extension on int {
-    int negate() =&gt; -this; // `=&gt;` is a shorthand for immediately returning a value
-}
-
-final a = 123.negate(); // calls the attached method `negate` with `this = 123`</code></pre>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extension</span> <span class="kw">on</span> <span class="dt">int</span> {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> negate() <span class="op">=&gt;</span> <span class="op">-</span><span class="kw">this</span>; <span class="co">// `=&gt;` is a shorthand for immediately returning a value</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> a <span class="op">=</span> <span class="dv">123</span><span class="op">.</span>negate(); <span class="co">// calls the attached method `negate` with `this = 123`</span></span></code></pre></div>
 <p>What’s more, you can use extensions to overload the call
 invocation:</p>
-<pre class="dart"><code>extension on int {
-    int call() =&gt; this * 2;
-}
-
-final a = 123(); // calls `123` as if it were a function</code></pre>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extension</span> <span class="kw">on</span> <span class="dt">int</span> {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> call() <span class="op">=&gt;</span> <span class="kw">this</span> <span class="op">*</span> <span class="dv">2</span>;</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> a <span class="op">=</span> <span class="dv">123</span>(); <span class="co">// calls `123` as if it were a function</span></span></code></pre></div>
 <p>The final piece needed to complete the puzzle are <strong>optional
 parameters</strong>. These are parameters that can be provided, but
 don’t have to.</p>
-<pre class="dart"><code>extension on int {
-    int call([int? multiplier]) {
-        if (multiplier != null) {
-            return this * multiplier;
-        } else {
-            return this;
-        }
-    }
-}
-
-final a = 123(); // calls `123` with `multiplier = null`
-final b = 123(321); // calls `123` with `multiplier = 321`</code></pre>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extension</span> <span class="kw">on</span> <span class="dt">int</span> {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> call([<span class="dt">int</span><span class="op">?</span> multiplier]) {</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (multiplier <span class="op">!=</span> <span class="cn">null</span>) {</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> <span class="kw">this</span> <span class="op">*</span> multiplier;</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> <span class="kw">this</span>;</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> a <span class="op">=</span> <span class="dv">123</span>(); <span class="co">// calls `123` with `multiplier = null`</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> b <span class="op">=</span> <span class="dv">123</span>(<span class="dv">321</span>); <span class="co">// calls `123` with `multiplier = 321`</span></span></code></pre></div>
 <h2 id="bringing-it-all-together">Bringing it all together</h2>
 <p>Now we can descend into madness:</p>
-<pre class="dart"><code>extension on () {
-  () call([()? _]) =&gt; ();
-}
-
-final a = (())()(())()(()())()(((()()))())(((())));</code></pre>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extension</span> <span class="kw">on</span> () {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  () call([()<span class="op">?</span> _]) <span class="op">=&gt;</span> ();</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">final</span> a <span class="op">=</span> (())()(())()(()())()(((()()))())(((())));</span></code></pre></div>
 <p>Perfectly valid Dart program using <strong>all introduced
 concepts</strong>. Let’s break it down:</p>
 <ol type="1">
@@ -623,35 +699,36 @@ overload on the empty record). Here, let’s assume an empty string is not
 balanced, since it obviously wont be a valid expression. There seems to
 be an equivalence here, but before we prove this let’s code up a
 function which will use this (<em>for now</em>) conjecture:</p>
-<pre class="dart"><code>import &#39;dart:io&#39;;
-
-void main() {
-  print(areParenthesesBalanced(&quot;()()(())()(()())()(((()()))())((((((()))))))&quot;));
-}
-
-bool areParenthesesBalanced(String s) {
-    // sanity check if the input is up to assumptions
-  if (!RegExp(r&#39;^[\(\)]*$&#39;).hasMatch(s)) return false;
-
-  final program = &#39;&#39;&#39;
-extension on () {
-  () call([()? _]) =&gt; ();
-}
-
-void main() {
-  final _ = $s;
-}
-&#39;&#39;&#39;;
-
-  final file = File(
-    Directory.systemTemp.createTempSync().path +
-        Platform.pathSeparator +
-        &#39;main.dart&#39;,
-  )..writeAsStringSync(program);
-  final result = Process.runSync(&#39;dart&#39;, [&#39;analyze&#39;, file.path]);
-
-  return result.exitCode == 0;
-}</code></pre>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&#39;dart:io&#39;</span>;</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> main() {</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  print(areParenthesesBalanced(<span class="st">&quot;()()(())()(()())()(((()()))())((((((()))))))&quot;</span>));</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> areParenthesesBalanced(<span class="dt">String</span> s) {</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// sanity check if the input is up to assumptions</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>RegExp(r<span class="st">&#39;^[\(\)]*$&#39;</span>)<span class="op">.</span>hasMatch(s)) <span class="kw">return</span> <span class="cn">false</span>;</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> program <span class="op">=</span> <span class="st">&#39;&#39;&#39;</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="kw">extension</span> <span class="kw">on</span> () {</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  () call([()<span class="op">?</span> _]) <span class="op">=&gt;</span> ();</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> main() {</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> _ <span class="op">=</span> $s;</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;&#39;;</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> file <span class="op">=</span> File(</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    Directory<span class="op">.</span>systemTemp<span class="op">.</span>createTempSync()<span class="op">.</span>path <span class="op">+</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        Platform<span class="op">.</span>pathSeparator <span class="op">+</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;main.dart&#39;</span><span class="op">,</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  )<span class="op">..</span>writeAsStringSync(program);</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> result <span class="op">=</span> Process<span class="op">.</span>runSync(<span class="st">&#39;dart&#39;</span><span class="op">,</span> [<span class="st">&#39;analyze&#39;</span><span class="op">,</span> file<span class="op">.</span>path]);</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  <span class="kw">return</span> result<span class="op">.</span>exitCode <span class="op">==</span> <span class="dv">0</span>;</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>We build source code for a program that will use these parentheses as
 an expression. We also define the <code>call</code> overload on
 <code>()</code>. We write this code to some file on OS’ temp folder and
@@ -740,7 +817,7 @@ epsilon production:</p>
 <p><span class="math display">
     S \to S \text{ &#39;(&#39; } S \text{ &#39;)&#39;} \quad | \quad
 \text{&#39;(&#39; } S \text{ &#39;)&#39;} \quad | \quad S \text{
-&#39;(&#39; &#39;)&#39;} \quad | \quad \text{&#39;(&#39; &#39;)&#39;} \\
+&#39;(&#39; &#39;)&#39;} \quad | \quad \text{&#39;(&#39; &#39;)&#39;}
 </span></p>
 <h3 id="g_e-grammar"><span class="math inline">G_e</span> grammar</h3>
 <p>For <span class="math inline">G_e</span> we will define more
