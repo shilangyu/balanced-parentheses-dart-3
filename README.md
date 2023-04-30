@@ -26,7 +26,7 @@ First of all, they are used to **group expressions** to indicate precedence:
 
 ```dart
 final a = (1 + 2) * (3 - 4); // first add, then subtract, then multiply
-final b = (123) + ((312)); // a no-op grouping of literals, equivalent to `123 + 321`
+final b = (123) + ((321)); // a no-op grouping of literals, equivalent to `123 + 321`
 ```
 
 Mixing empty records and grouping we get a new expression:
