@@ -283,7 +283,7 @@ And... That's it. Replacing $\text{Expression}$ with $S$ we can see that both pr
 
 > I made a subtle assumption here: the grammar presented for both languages is correct. At no point did I prove that the presented grammars actually generate the languages in question.
 
-These languages (or at this point, "this language") is not regular. One insightful consequence is that you cannot determine if a string of parentheses is balanced using a regular expression. The language is one class higher, it is context free (which is trivially proven by previously writing its context free grammar). Sketch of the proof that it is not context free: using the contraposition of the pumping lemma we consider the word $(^N)^N$ which is in the language, but pumping it only ever removes/adds open parenthesis making the string imbalanced which renders it outside of the language.
+These languages (or at this point, "this language") is not regular. One insightful consequence is that you cannot determine if a string of parentheses is balanced using a regular expression. The language is one class higher, it is context free (which is trivially proven by previously writing its context free grammar). Sketch of the proof that it is not regular: using the contraposition of the pumping lemma we consider the word $(^N)^N$ which is in the language, but pumping it only ever removes/adds open parenthesis making the string imbalanced which renders it outside of the language.
 
 ---
 
